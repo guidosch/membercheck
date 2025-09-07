@@ -1,0 +1,10 @@
+:host {
+    padding: 0.3em;
+    color: white;
+    font-size: 0.6rem;
+    height: var(--footer-height);
+}
+
+footer {
+  text-align: center;
+}

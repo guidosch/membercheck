@@ -3,7 +3,7 @@ export class Member {
         public firstName: string,
         public lastName: string,
         public email?: string,
-        public verfifiedMember: boolean = false,
+        public isVerified: boolean = false,
         public verificationNumber?: number
     ) {}
 }

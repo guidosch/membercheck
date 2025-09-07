@@ -1,11 +1,10 @@
 
-@if (!verifiedMember().verfifiedMember) {
+@if (!verifiedMemberFromBackend().isVerified) {
     <p>Falls du ein Aktivmitlied von Züritrails bist, dann solltest du via E-Mail einen Code erhalten haben. Bitte hier eingeben um den Member Check abzuschliessen.</p>
     <code-input [isCodeHidden]="false"
                   [codeLength]="4"
-                  (codeChanged)="onCodeChanged($event)"
                   (codeCompleted)="onCodeCompleted($event)">
     </code-input>
 } @else {
-    <app-membership-proof [member]="verifiedMember()"></app-membership-proof>
+    <app-membership-proof [member]="verifiedMemberFromBackend()"></app-membership-proof>
 }

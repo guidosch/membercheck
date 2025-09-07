@@ -14,20 +14,17 @@ import { J } from '@angular/cdk/keycodes';
 export class VerificationCode {
 
   member = input.required<Member>();
-  verifiedMember = signal<Member>(new Member("",""));
+  //todo: try only wiht inputs no signal needed here
+  verifiedMemberFromBackend = signal<Member>(new Member("",""));
   
   constructor(private backendService: CloudFunctions) { }
-
-  onCodeChanged(code: string) {
-    console.log('Code changed: ', code);
-  }
 
   onCodeCompleted(code: string) {
     console.log('Code completed: ', typeof (code), code);
     this.backendService.verifyMember(this.member()).subscribe({
       next: (response) => {
         console.log('Member verified', JSON.stringify(response));
-        this.verifiedMember.update(() => response);
+        this.verifiedMemberFromBackend.update(() => response);
 
       },
       error: (err) => {
