@@ -1,0 +1,10 @@
+ code-input {
+    --item-spacing: 10px;
+    --item-height: 3em;
+    --item-border: 2px solid #809070;;
+    --item-border-has-value: none;
+    --item-border-bottom-has-value: 2px solid #888888;
+    --item-border-focused: none;
+    --item-shadow-focused: none;
+    --item-border-radius: 0px;
+  }

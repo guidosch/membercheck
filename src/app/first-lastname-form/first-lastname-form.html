@@ -1,0 +1,26 @@
+@if (!hideForm){
+<p>Vorname und Nachname eingeben und absenden.</p>
+<div>
+  <form [formGroup]="meberForm" (ngSubmit)="onFormSubmit()">
+    <mat-form-field class="example-full-width">
+      <mat-label>Vorname</mat-label>
+      <input matInput value="Max" formControlName="firstName">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Nachname</mat-label>
+      <input matInput value="Muster" formControlName="lastName">
+    </mat-form-field>
+
+    <div class="example-button-row">
+      <button matButton="tonal" [disabled]="!meberForm.valid" type="submit">Check</button>
+    </div>
+  </form>
+</div>
+} @else {
+
+<div>
+  <app-verification-code [member]="member()"></app-verification-code>
+</div>
+}
+
