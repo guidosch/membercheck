@@ -1,6 +1,8 @@
 
 @if (!verifiedMemberFromBackend().isVerified) {
-    <p>Falls du ein Aktivmitlied von Züritrails bist, dann solltest du via E-Mail einen Code erhalten haben. Bitte hier eingeben um den Member Check abzuschliessen.</p>
+    <p>Falls du ein Aktivmitlied von Züritrails bist, dann solltest du via E-Mail einen Code erhalten haben.</p>
+    <p>Bitte Code hier eingeben um den Member Check abzuschliessen.</p>
+    <p>&nbsp;</p>
     <code-input [isCodeHidden]="false"
                   [codeLength]="4"
                   (codeCompleted)="onCodeCompleted($event)">
