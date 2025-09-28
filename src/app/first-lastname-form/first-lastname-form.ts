@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, model, ModelSignal, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormControl, Validators, FormsModule, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -18,10 +18,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class FirstLastnameForm {
 
-  constructor(private backendService: CloudFunctions, private ref: ChangeDetectorRef) { }
+  constructor(private backendService: CloudFunctions) { }
 
+  // Using signals for state management. The hideFrom would not work with a simple boolean as the change detection strategy is OnPush.
+  // The update of the signal triggers change detection.
   member = signal<Member>(new Member("", ""));
-  hideForm: boolean = false;
+  hideForm = signal<boolean>(false);
   private snackBar = inject(MatSnackBar);
 
   durationInSeconds = 5;
@@ -38,12 +40,11 @@ export class FirstLastnameForm {
       next: (member) => {
         console.log('Member found', member);
         this.member.update(() => member);
-        this.hideForm = true;
-        this.ref.markForCheck(); // trigger change detection manually due to async var update hideForm. The change detection was already run when the async var was updated.
+        this.hideForm.update(() => true);
       },
       error: (err) => {
         if (err.status === 404) {
-          this.hideForm = true;
+          this.hideForm.update(() => false);
         } else if (err.status === 429) {
           console.warn('Rate limit exceeded', err);
           this.snackBar.open("Zu viele Anfragen. Bitte morgen nochmals versuchen.", "Schliessen");
@@ -52,7 +53,6 @@ export class FirstLastnameForm {
           console.error('Error occurred while searching member', err);
           this.snackBar.open("Serverfehler. Bitte versuche es später erneut.", "Schliessen");
         }
-        this.ref.markForCheck();
       }
       
     });

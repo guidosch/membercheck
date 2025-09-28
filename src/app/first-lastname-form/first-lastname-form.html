@@ -1,4 +1,4 @@
-@if (!hideForm){
+@if (!hideForm()){
 <p>Vorname und Nachname eingeben und absenden.</p>
 <div>
   <form [formGroup]="meberForm" (ngSubmit)="onFormSubmit()">
