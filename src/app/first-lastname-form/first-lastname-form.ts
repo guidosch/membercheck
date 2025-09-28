@@ -1,20 +1,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, model, ModelSignal, signal } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
-import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormControl, Validators, FormsModule, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { Member } from '../member';
 import { CloudFunctions } from '../cloud-functions';
 import { VerificationCode } from '../verification-code/verification-code';
-import {
-  MatSnackBar,
-  MatSnackBarAction,
-  MatSnackBarActions,
-  MatSnackBarLabel,
-  MatSnackBarRef,
-} from '@angular/material/snack-bar';
-import { Snackbar } from '../snackbar/snackbar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -52,10 +44,13 @@ export class FirstLastnameForm {
       error: (err) => {
         if (err.status === 404) {
           this.hideForm = true;
-        } else if (err.status >= 500) {
+        } else if (err.status === 429) {
+          console.warn('Rate limit exceeded', err);
+          this.snackBar.open("Zu viele Anfragen. Bitte morgen nochmals versuchen.", "Schliessen");
+        }
+        else if (err.status >= 500) {
           console.error('Error occurred while searching member', err);
-          this.openSnackBar();
-          this.hideForm = false;
+          this.snackBar.open("Serverfehler. Bitte versuche es später erneut.", "Schliessen");
         }
         this.ref.markForCheck();
       }
@@ -64,9 +59,4 @@ export class FirstLastnameForm {
 
   }
 
-  openSnackBar() {
-    this.snackBar.openFromComponent(Snackbar, {
-      duration: this.durationInSeconds * 1000,
-    });
-  }
 }

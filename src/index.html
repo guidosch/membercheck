@@ -5,11 +5,19 @@
   <title>Membercheck</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="https://images.squarespace-cdn.com/content/v1/55db75eee4b01430023b9803/6252bada-b9a4-4347-9bcc-e6ff64de169a/favicon.ico?format=100w">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-  <app-root></app-root>
+  <app-root>
+    <matSnackBarContainer>
+      <SimpleSnackBar>
+        <span class="mat-simple-snackbar-message"></span>
+        <button class="mat-simple-snackbar-action" aria-label="Close"></button>
+      </SimpleSnackBar>
+    </matSnackBarContainer>
+    <app-footer></app-footer>
+  </app-root>
 </body>
 </html>
