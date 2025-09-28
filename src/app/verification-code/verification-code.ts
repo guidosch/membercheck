@@ -22,10 +22,10 @@ export class VerificationCode {
   constructor(private backendService: CloudFunctions) { }
 
   onCodeCompleted(code: string) {
-    console.log('Code completed: ', typeof (code), code);
+    console.log('Code completed: ', code);
     this.backendService.verifyMember(this.member()).subscribe({
       next: (response) => {
-        console.log('Member verified', JSON.stringify(response));
+        //console.log('Member verified', JSON.stringify(response));
         this.verifiedMemberFromBackend.update(() => response);
 
       },
@@ -37,6 +37,7 @@ export class VerificationCode {
           console.error('Error occurred while verifying member', err);
           this.snackBar.open("Serverfehler. Bitte versuche es später erneut.", "Schliessen");
         }
+        console.error('Error occurred while verifying member', err);
       }
     });
   }

@@ -38,13 +38,13 @@ export class FirstLastnameForm {
     console.log('Form Value', JSON.stringify(this.meberForm.value));
     this.backendService.searchMember(this.meberForm.value.firstName!.trim(), this.meberForm.value.lastName!.trim()).subscribe({
       next: (member) => {
-        console.log('Member found', member);
+        //console.log('Member found', member);
         this.member.update(() => member);
         this.hideForm.update(() => true);
       },
       error: (err) => {
         if (err.status === 404) {
-          this.hideForm.update(() => false);
+          this.hideForm.update(() => true);
         } else if (err.status === 429) {
           console.warn('Rate limit exceeded', err);
           this.snackBar.open("Zu viele Anfragen. Bitte morgen nochmals versuchen.", "Schliessen");
