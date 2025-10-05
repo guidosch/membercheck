@@ -16,6 +16,7 @@
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "outputPath": "docs",
+            "baseHref": "/membercheck/",
             "assets": [
               {
                 "glob": "**/*",
